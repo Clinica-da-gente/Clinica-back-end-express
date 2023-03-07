@@ -1,6 +1,6 @@
 import { ObjectId } from "mongodb";
-import { IUpdateUser } from "../../interfaces/users";
-import { usersCollection } from "../../mongoClient";
+import { IUpdateUser } from "../../interfaces/usuarios";
+import { usuariosCollection } from "../../mongoClient";
 
 const updateUserService = async ({
   _id,
@@ -8,7 +8,7 @@ const updateUserService = async ({
   infos_medico,
   nome,
 }: IUpdateUser) => {
-  const user = await usersCollection.findOne({ _id: new ObjectId(_id) });
+  const user = await usuariosCollection.findOne({ _id: new ObjectId(_id) });
 
   const newUser = {
     ...user,
@@ -22,7 +22,7 @@ const updateUserService = async ({
         infos_medico!.especialidade || user!.infos_medico.especialidade,
     },
   };
-  await usersCollection.findOneAndUpdate(
+  await usuariosCollection.findOneAndUpdate(
     { _id: new ObjectId(_id) },
     { $set: newUser },
   );

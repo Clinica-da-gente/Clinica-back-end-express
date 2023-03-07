@@ -1,15 +1,13 @@
 import { Router } from "express";
-
-import { verifyEmailExistMiddleware } from "../middlewares/verifyEmailExist.middleware";
-import { verifyUserExistMiddleware } from "../middlewares/verifyUserExist.middleware";
-
+import { verifyEmailExistMiddleware } from "../middlewares/usuarios/verifyEmailExist.middleware";
+import { verifyUserExistMiddleware } from "../middlewares/usuarios/verifyUserExist.middleware";
 import {
   createUserController,
   listAllUsersController,
   listOneUserController,
   updateUserController,
   deleteUserController,
-} from "../controllers/users";
+} from "../controllers/usuarios";
 
 const userRoutes = Router();
 
@@ -19,4 +17,4 @@ userRoutes.get("/:id", verifyUserExistMiddleware, listOneUserController);
 userRoutes.patch("/:id", verifyUserExistMiddleware, updateUserController);
 userRoutes.delete("/:id", verifyUserExistMiddleware, deleteUserController);
 
-export default userRoutes;
+export { userRoutes };

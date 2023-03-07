@@ -1,18 +1,30 @@
-import bcrypt from "bcrypt";
+import "dotenv/config";
+import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { IUserLogin } from "../../interfaces/users";
+import { AppError } from "../../errors/appError";
+import { IUserLogin } from "../../interfaces/usuarios";
 
-import { usersCollection } from "../../mongoClient";
+import { usuariosCollection } from "../../mongoClient";
 
 const authService = async ({ email, senha }: IUserLogin) => {
-  const user = await usersCollection.findOne({ email });
-  const passwordMatch = await bcrypt.compare(senha, user!.password);
-  if (!passwordMatch) {
-    throw new Error("Wrong email or password");
+  const user = await usuariosCollection.findOne({ email });
+  if (!user) {
+    throw new AppError(401, "Wrong email or password");
   }
-  const token = jwt.sign({ id: user!._id }, "CLINIKA_SECRET_KEY", {
-    expiresIn: "1d",
-  });
+
+  const passwordMatch = await bcrypt.compare(senha, user!.senha);
+  if (!passwordMatch) {
+    throw new AppError(401, "Wrong email or password");
+  }
+
+  const token = jwt.sign(
+    { id: user!._id, e_admin: user!.e_admin, e_medico: user!.e_medico },
+    process.env.SECRET_KEY!,
+    {
+      expiresIn: "1d",
+    },
+  );
+
   return token;
 };
 
