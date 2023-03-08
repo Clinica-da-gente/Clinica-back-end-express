@@ -1,10 +1,9 @@
 import { MongoClient } from "mongodb";
 
-const url =
-  "mongodb+srv://admin:admin1234@clinika.jjmivcd.mongodb.net/?retryWrites=true&w=majority";
+const url = process.env.DB_URI!;
 const client = new MongoClient(url);
 
-const dbName = "clinika";
+const dbName = "DATABASE";
 
 const db = client.db(dbName);
 
