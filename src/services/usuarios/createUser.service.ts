@@ -23,10 +23,10 @@ const createUserService = async ({
     user.infos_medico = infos_medico;
   }
 
-  await usuariosCollection.insertOne(user);
+  const result = await usuariosCollection.insertOne(user);
 
   return {
-    ...user,
+    ...result,
     senha: undefined,
   };
 };

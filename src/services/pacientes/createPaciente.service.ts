@@ -9,7 +9,7 @@ const createPacienteService = async ({
   nome,
   telefone,
 }: ICreatePaciente) => {
-  const paciente = {
+  return await pacientesCollection.insertOne({
     nome,
     email,
     cpf,
@@ -18,11 +18,7 @@ const createPacienteService = async ({
     esta_ativo: true,
     data_cadastro: Date.now(),
     id_convenio,
-  };
-
-  await pacientesCollection.insertOne(paciente);
-
-  return paciente;
+  });
 };
 
 export { createPacienteService };

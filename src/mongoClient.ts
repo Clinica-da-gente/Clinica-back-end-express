@@ -3,7 +3,7 @@ import { MongoClient } from "mongodb";
 const url = process.env.DB_URI!;
 const client = new MongoClient(url);
 
-const dbName = "DATABASE";
+const dbName = "clinika";
 
 const db = client.db(dbName);
 
@@ -13,6 +13,7 @@ const consultasCollection = db.collection("consultas");
 const conveniosCollection = db.collection("convenios");
 const pacientesCollection = db.collection("pacientes");
 const usuariosCollection = db.collection("usuarios");
+const caixasCollection = db.collection("caixas");
 
 export {
   client,
@@ -22,4 +23,5 @@ export {
   conveniosCollection,
   pacientesCollection,
   usuariosCollection,
+  caixasCollection,
 };

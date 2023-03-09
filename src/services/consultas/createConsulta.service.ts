@@ -14,7 +14,7 @@ const createConsultaService = async ({
   pago,
   usuario,
 }: ICreateConsulta) => {
-  const consulta = {
+  return await consultasCollection.insertOne({
     atualizado_em,
     cancelada,
     compareceu,
@@ -26,10 +26,7 @@ const createConsultaService = async ({
     paciente,
     pago,
     usuario,
-  };
-  await consultasCollection.insertOne(consulta);
-
-  return consulta;
+  });
 };
 
 export { createConsultaService };
