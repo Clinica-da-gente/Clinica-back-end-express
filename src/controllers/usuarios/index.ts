@@ -5,6 +5,9 @@ import { deleteUserService } from "../../services/usuarios/deleteUser.service";
 import { listAllUsersServices } from "../../services/usuarios/listAllUsers.service";
 import { listOneUserService } from "../../services/usuarios/listOneUser.service";
 import { updateUserService } from "../../services/usuarios/updateUser.service";
+import jwt from "jsonwebtoken";
+import "dotenv/config";
+import { getProfileService } from "../../services/usuarios/getProfile.service";
 
 export const createUserController = async (req: Request, res: Response) => {
   const { e_admin, e_medico, email, nome, senha, infos_medico } = req.body;
@@ -25,7 +28,7 @@ export const listAllUsersController = async (req: Request, res: Response) => {
     res.status(200).json(result);
   } catch (err) {
     if (err instanceof AppError) {
-      handleError(err, res)
+      handleError(err, res);
     }
   }
 };
@@ -37,7 +40,7 @@ export const listOneUserController = async (req: Request, res: Response) => {
     res.json(result);
   } catch (err) {
     if (err instanceof AppError) {
-      handleError(err, res)
+      handleError(err, res);
     }
   }
 };
@@ -50,7 +53,7 @@ export const updateUserController = async (req: Request, res: Response) => {
     res.status(204);
   } catch (err) {
     if (err instanceof AppError) {
-      handleError(err, res)
+      handleError(err, res);
     }
   }
 };
@@ -62,7 +65,24 @@ export const deleteUserController = async (req: Request, res: Response) => {
     res.status(204);
   } catch (err) {
     if (err instanceof AppError) {
-      handleError(err, res)
+      handleError(err, res);
+    }
+  }
+};
+
+export const getProfileController = async (req: Request, res: Response) => {
+  try {
+    const authorization = req.headers.authorization;
+    if (!authorization) {
+      throw new AppError(401, "Missing token");
+    }
+    const [, token] = authorization.split(" ");
+    const decoded = jwt.verify(token, process.env.SECRET_KEY!);
+    const result = await getProfileService({ _id: (<any>decoded).id });
+    res.json(result);
+  } catch (err) {
+    if (err instanceof AppError) {
+      handleError(err, res);
     }
   }
 };

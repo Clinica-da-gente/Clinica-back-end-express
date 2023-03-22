@@ -6,7 +6,6 @@ export const loginController = async (req: Request, res: Response) => {
   try {
     const { email, senha } = req.body;
     const token = await authService({ email, senha });
-    console.log(token)
     res.status(200).json({ token });
   } catch (err) {
     if (err instanceof AppError) {

@@ -9,7 +9,7 @@ import { caixasRoutes } from "./caixas.routes";
 
 const routes = Router();
 
-routes.use("/users", userRoutes);
+routes.use("/usuarios", userRoutes);
 routes.use("/login", loginRoutes);
 routes.use("/pacientes", pacientesRoutes);
 routes.use("/consultas", consultasRoutes);

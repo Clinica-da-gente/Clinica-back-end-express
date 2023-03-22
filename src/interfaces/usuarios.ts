@@ -29,3 +29,11 @@ export interface IUserLogin {
   email: string;
   senha: string;
 }
+
+export interface IUserTokenDecoded {
+  id: string;
+  e_admin: boolean;
+  e_medico: boolean;
+  iat: number;
+  exp: number;
+}

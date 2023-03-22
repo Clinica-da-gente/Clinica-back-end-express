@@ -7,12 +7,14 @@ import {
   listOneUserController,
   updateUserController,
   deleteUserController,
+  getProfileController,
 } from "../controllers/usuarios";
 
 const userRoutes = Router();
 
 userRoutes.post("/", verifyEmailExistMiddleware, createUserController);
 userRoutes.get("/", listAllUsersController);
+userRoutes.get("/profile", getProfileController);
 userRoutes.get("/:id", verifyUserExistMiddleware, listOneUserController);
 userRoutes.patch("/:id", verifyUserExistMiddleware, updateUserController);
 userRoutes.delete("/:id", verifyUserExistMiddleware, deleteUserController);
