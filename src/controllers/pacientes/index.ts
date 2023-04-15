@@ -71,7 +71,7 @@ export const updatePacienteController = async (req: Request, res: Response) => {
     const { cpf, data_nascimento, email, id_convenio, nome, telefone } =
       req.body;
 
-    await updatePacienteService({
+    const result = await updatePacienteService({
       _id: id,
       cpf,
       data_nascimento,
@@ -80,7 +80,7 @@ export const updatePacienteController = async (req: Request, res: Response) => {
       telefone,
     });
 
-    res.status(204);
+    res.status(204).json(result);
   } catch (err) {
     if (err instanceof AppError) {
       handleError(err, res);
