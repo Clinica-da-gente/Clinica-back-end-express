@@ -9,10 +9,10 @@ const createConsultaService = async ({
   criado_em,
   descricao,
   horario,
-  medico,
-  paciente,
+  medico_id,
+  paciente_id,
   pago,
-  usuario,
+  usuario_id,
 }: ICreateConsulta) => {
   return await consultasCollection.insertOne({
     atualizado_em,
@@ -22,10 +22,10 @@ const createConsultaService = async ({
     criado_em,
     descricao,
     horario,
-    medico,
-    paciente,
+    medico_id,
+    paciente_id,
     pago,
-    usuario,
+    usuario_id,
   });
 };
 

@@ -4,12 +4,14 @@ import { anamnesesCollection } from "../../mongoClient";
 const createAnamneseService = async ({
   criado_em,
   descricao,
-  paciente,
+  consulta_id,
+  paciente_id,
 }: ICreateAnamnese) => {
   const anamnese = {
     descricao,
     criado_em,
-    paciente,
+    consulta_id,
+    paciente_id,
   };
 
   await anamnesesCollection.insertOne(anamnese);

@@ -5,23 +5,27 @@ import { listAllConsultasService } from "../../services/consultas/listAllConsult
 import { listOneConsultaService } from "../../services/consultas/listOneConsulta.service";
 import { updateConsultaService } from "../../services/consultas/updateConsulta.service";
 import { deleteConsultaService } from "../../services/consultas/deleteConsulta.service";
+import { listConsultByDoctorService } from "../../services/consultas/listConsultaByDoctor.service";
+import jwt from "jsonwebtoken";
+import { listLatestConsultasByPacienteService } from "../../services/consultas/listLatestConsultasByPaciente.service";
 
 export const createConsultaController = async (req: Request, res: Response) => {
   try {
-    const { descricao, horario, medico, paciente, usuario } = req.body;
+    const { descricao, horario, medico_id, paciente_id, usuario_id } = req.body;
 
     const result = await createConsultaService({
       atualizado_em: `${Date.now()}`,
+      criado_em: `${Date.now()}`,
       cancelada: false,
       compareceu: false,
       confirmado: false,
-      criado_em: `${Date.now()}`,
       pago: false,
+      atendido: false,
       descricao,
       horario,
-      medico,
-      paciente,
-      usuario,
+      medico_id,
+      paciente_id,
+      usuario_id,
     });
 
     res.status(201).json(result);
@@ -73,10 +77,11 @@ export const updateConsultaController = async (req: Request, res: Response) => {
       confirmado,
       descricao,
       horario,
-      medico,
-      paciente,
+      medico_id,
+      paciente_id,
       pago,
-      usuario,
+      usuario_id,
+      atendido,
     } = req.body;
 
     await updateConsultaService({
@@ -86,13 +91,14 @@ export const updateConsultaController = async (req: Request, res: Response) => {
       confirmado,
       descricao,
       horario,
-      medico,
-      paciente,
+      medico_id,
+      paciente_id,
       pago,
-      usuario,
+      usuario_id,
+      atendido,
     });
 
-    res.status(204);
+    res.status(204).json();
   } catch (err) {
     if (err instanceof AppError) {
       handleError(err, res);
@@ -103,10 +109,44 @@ export const updateConsultaController = async (req: Request, res: Response) => {
 export const deleteConsultaController = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
+    const result = await deleteConsultaService({ id });
 
-    await deleteConsultaService({ id });
+    res.status(204).json();
+  } catch (err) {
+    if (err instanceof AppError) {
+      handleError(err, res);
+    }
+  }
+};
 
-    res.status(204);
+export const listConsultByDoctorController = async (
+  req: Request,
+  res: Response,
+) => {
+  try {
+    const authorization = req.headers.authorization;
+    if (!authorization) {
+      throw new AppError(401, "Missing token");
+    }
+    const [, token] = authorization.split(" ");
+    const decoded = jwt.verify(token, process.env.SECRET_KEY!);
+    const result = await listConsultByDoctorService({ id: (<any>decoded).id });
+    res.json(result);
+  } catch (err) {
+    if (err instanceof AppError) {
+      handleError(err, res);
+    }
+  }
+};
+
+export const listLatestConsultasByPacienteController = async (
+  req: Request,
+  res: Response,
+) => {
+  try {
+    const { id } = req.params;
+    const result = await listLatestConsultasByPacienteService({ id });
+    res.json(result);
   } catch (err) {
     if (err instanceof AppError) {
       handleError(err, res);

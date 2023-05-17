@@ -4,8 +4,9 @@ export interface IAnamneseId {
 
 export interface ICreateAnamnese {
   descricao: string;
-  paciente: string;
+  consulta_id: string;
   criado_em: string;
+  paciente_id: string;
 }
 
 export interface IUpdateAnamnese {

@@ -5,15 +5,17 @@ import { listAllAnamnesesService } from "../../services/anamneses/listAllAnamnes
 import { listOneAnamneseService } from "../../services/anamneses/listOneAnamnese.service";
 import { updateAnamneseService } from "../../services/anamneses/updateAnamnese.service";
 import { deleteAnamneseService } from "../../services/anamneses/deleteAnamnese.service";
+import { listLastAnamneseByPacienteService } from "../../services/anamneses/listLastAnamneseByPaciente.service";
 
 export const createAnamneseController = async (req: Request, res: Response) => {
   try {
-    const { descricao, paciente } = req.body;
+    const { descricao, consulta_id, paciente_id } = req.body;
 
     const result = await createAnamneseService({
       criado_em: `${Date.now()}`,
       descricao,
-      paciente,
+      consulta_id,
+      paciente_id
     });
 
     res.status(201).json(result);
@@ -77,7 +79,22 @@ export const deleteAnamneseController = async (req: Request, res: Response) => {
 
     await deleteAnamneseService({ id });
 
-    res.status(204);
+    res.status(204).json();
+  } catch (err) {
+    if (err instanceof AppError) {
+      handleError(err, res);
+    }
+  }
+};
+
+export const listLastAnamneseByPacienteController = async (
+  req: Request,
+  res: Response,
+) => {
+  try {
+    const { id } = req.params;
+    const result = await listLastAnamneseByPacienteService({ id });
+    res.json(result);
   } catch (err) {
     if (err instanceof AppError) {
       handleError(err, res);

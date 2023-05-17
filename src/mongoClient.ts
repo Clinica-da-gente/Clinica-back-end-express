@@ -15,6 +15,8 @@ const conveniosCollection = db.collection("convenios");
 const pacientesCollection = db.collection("pacientes");
 const usuariosCollection = db.collection("usuarios");
 const caixasCollection = db.collection("caixas");
+const examesCollection = db.collection("exames");
+const examesSolicitadosCollection = db.collection("exames_solicitados");
 
 export {
   client,
@@ -25,4 +27,6 @@ export {
   pacientesCollection,
   usuariosCollection,
   caixasCollection,
+  examesCollection,
+  examesSolicitadosCollection,
 };
