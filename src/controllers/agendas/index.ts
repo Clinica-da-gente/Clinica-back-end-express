@@ -9,21 +9,21 @@ import { deleteAgendaService } from "../../services/agendas/deleteAgenda.service
 const createAgendaController = async (req: Request, res: Response) => {
   try {
     const {
-      consulta,
+      consulta_id,
       data_hora_inicial,
       dia_da_consulta,
       horario_final,
       horario_inicial,
-      medico,
+      medico_id,
     } = req.body;
 
     const result = await createAgendaService({
-      consulta,
+      consulta_id,
       data_hora_inicial,
       dia_da_consulta,
       horario_final,
       horario_inicial,
-      medico,
+      medico_id,
     });
 
     res.status(201).json(result);
@@ -64,22 +64,22 @@ const updateAgendaController = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const {
-      consulta,
+      consulta_id,
       data_hora_inicial,
       dia_da_consulta,
       horario_final,
       horario_inicial,
-      medico,
+      medico_id,
     } = req.body;
 
     await updateAgendaService({
       id,
-      consulta,
+      consulta_id,
       data_hora_inicial,
       dia_da_consulta,
       horario_final,
       horario_inicial,
-      medico,
+      medico_id,
     });
 
     res.status(204);

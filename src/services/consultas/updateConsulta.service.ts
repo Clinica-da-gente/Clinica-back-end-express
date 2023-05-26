@@ -37,7 +37,7 @@ const updateConsultaService = async ({
 
   await consultasCollection.findOneAndReplace(
     { _id: new ObjectId(id) },
-    newConsulta,
+    { $set: newConsulta },
   );
 
   return newConsulta;

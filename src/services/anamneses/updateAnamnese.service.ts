@@ -6,13 +6,12 @@ const updateAnamneseService = async ({ id, descricao }: IUpdateAnamnese) => {
   const anamnese = await anamnesesCollection.findOne({ _id: new ObjectId(id) });
 
   const newAnamnese = {
-    ...anamnese,
-    descricao,
+    descricao: descricao !== undefined ? descricao : anamnese!.descricao,
   };
 
   await anamnesesCollection.findOneAndUpdate(
     { _id: new ObjectId(id) },
-    newAnamnese,
+    { $set: newAnamnese },
   );
 
   return true;

@@ -16,13 +16,16 @@ const updatePacienteService = async ({
   });
 
   const newPaciente = {
-    ...paciente,
-    cpf,
-    data_nascimento,
-    email,
-    id_convenio,
-    nome,
-    telefone,
+    nome: nome !== undefined ? nome : paciente!.nome,
+    email: email !== undefined ? email : paciente!.email,
+    cpf: cpf !== undefined ? cpf : paciente!.cpf,
+    data_nascimento:
+      data_nascimento !== undefined
+        ? data_nascimento
+        : paciente!.data_nascimento,
+    telefone: telefone !== undefined ? telefone : paciente!.telefone,
+    id_convenio:
+      id_convenio !== undefined ? id_convenio : paciente!.id_convenio,
   };
 
   await pacientesCollection.findOneAndUpdate(

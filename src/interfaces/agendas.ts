@@ -7,8 +7,8 @@ export interface ICreateAgenda {
   horario_inicial: string;
   horario_final: string;
   data_hora_inicial: string;
-  medico: string;
-  consulta: string;
+  medico_id: string;
+  consulta_id: string;
 }
 
 export interface IUpdateAgenda {
@@ -17,6 +17,6 @@ export interface IUpdateAgenda {
   horario_inicial?: string;
   horario_final?: string;
   data_hora_inicial?: string;
-  medico?: string;
-  consulta?: string;
+  medico_id?: string;
+  consulta_id?: string;
 }
