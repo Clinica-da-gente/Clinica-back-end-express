@@ -4,11 +4,12 @@ export interface IPacienteId {
 
 export interface ICreatePaciente {
   nome: string;
-  email: string;
+  // email: string;
   cpf: string;
   telefone: string;
   data_nascimento: string;
   id_convenio: string;
+  observacoes?: string;
 }
 
 export interface IUpdatePaciente {
