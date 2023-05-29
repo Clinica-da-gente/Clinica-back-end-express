@@ -34,8 +34,8 @@ const updateConsultaService = async ({
     atendido: atendido !== undefined ? atendido : consulta!.atendido,
     atualizado_em: `${Date.now()}`,
   };
-
-  await consultasCollection.findOneAndReplace(
+  console.log(newConsulta)
+  await consultasCollection.findOneAndUpdate(
     { _id: new ObjectId(id) },
     { $set: newConsulta },
   );
