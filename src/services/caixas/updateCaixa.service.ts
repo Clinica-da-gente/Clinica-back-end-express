@@ -9,7 +9,10 @@ const updateCaixaService = async ({ id }: ICaixaUpdate) => {
     ...caixa,
   };
 
-  await caixasCollection.findOneAndUpdate({ _id: new ObjectId(id) }, newCaixa);
+  await caixasCollection.findOneAndUpdate(
+    { _id: new ObjectId(id) },
+    { $set: newCaixa },
+  );
 
   return newCaixa;
 };

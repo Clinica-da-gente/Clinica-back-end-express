@@ -66,7 +66,7 @@ const deleteCaixaController = async (req: Request, res: Response) => {
 
     await deleteCaixaService({ id });
 
-    res.status(204);
+    res.status(204).json();
   } catch (err) {
     if (err instanceof AppError) {
       handleError(err, res);

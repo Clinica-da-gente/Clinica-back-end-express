@@ -11,17 +11,23 @@ const updateUserService = async ({
   const user = await usuariosCollection.findOne({ _id: new ObjectId(_id) });
 
   const newUser = {
-    ...user,
-    email,
-    nome,
-    infos_medico: {
-      registro_profissional:
-        infos_medico!.registro_profissional ||
-        user!.infos_medico.registro_profissional,
-      especialidade:
-        infos_medico!.especialidade || user!.infos_medico.especialidade,
-    },
+    nome: nome !== undefined ? nome : user!.nome,
+    email: email !== undefined ? email : user!.email,
+    infos_medico:
+      infos_medico !== undefined
+        ? {
+            registro_profissional:
+              infos_medico!.registro_profissional !== undefined
+                ? infos_medico!.registro_profissional
+                : user!.infos_medico!.registro_profissional,
+            especialidade:
+              infos_medico!.especialidade !== undefined
+                ? infos_medico!.especialidade
+                : user!.infos_medico.especialidade,
+          }
+        : user!.infos_medico,
   };
+
   await usuariosCollection.findOneAndUpdate(
     { _id: new ObjectId(_id) },
     { $set: newUser },
