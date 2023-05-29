@@ -11,7 +11,7 @@ import { listLatestConsultasByPacienteService } from "../../services/consultas/l
 
 export const createConsultaController = async (req: Request, res: Response) => {
   try {
-    const { descricao, horario, medico_id, paciente_id, usuario_id, status } =
+    const { descricao, horario, data, medico_id, paciente_id, usuario_id } =
       req.body;
 
     const result = await createConsultaService({
@@ -19,11 +19,12 @@ export const createConsultaController = async (req: Request, res: Response) => {
       criado_em: `${Date.now()}`,
       pago: false,
       descricao,
+      data,
       horario,
       medico_id,
       paciente_id,
       usuario_id,
-      status,
+      status: "agendado",
     });
 
     res.status(201).json(result);
@@ -71,6 +72,7 @@ export const updateConsultaController = async (req: Request, res: Response) => {
     const { id } = req.params;
     const {
       descricao,
+      data,
       horario,
       medico_id,
       paciente_id,
@@ -82,6 +84,7 @@ export const updateConsultaController = async (req: Request, res: Response) => {
     await updateConsultaService({
       id,
       descricao,
+      data,
       horario,
       medico_id,
       paciente_id,

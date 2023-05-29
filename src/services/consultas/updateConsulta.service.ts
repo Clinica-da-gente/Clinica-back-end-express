@@ -5,6 +5,7 @@ import { ObjectId } from "mongodb";
 const updateConsultaService = async ({
   id,
   descricao,
+  data,
   horario,
   medico_id,
   paciente_id,
@@ -19,6 +20,7 @@ const updateConsultaService = async ({
   const newConsulta = {
     _id: consulta!._id,
     descricao: descricao !== undefined ? descricao : consulta!.descricao,
+    data: data !== undefined ? data : consulta!.data,
     horario: horario !== undefined ? horario : consulta!.horario,
     medico_id: medico_id !== undefined ? medico_id : consulta!.medico_id,
     paciente_id:
@@ -28,7 +30,7 @@ const updateConsultaService = async ({
     status: status !== undefined ? status : consulta!.status,
     atualizado_em: `${Date.now()}`,
   };
-  console.log(newConsulta);
+  
   await consultasCollection.findOneAndUpdate(
     { _id: new ObjectId(id) },
     { $set: newConsulta },

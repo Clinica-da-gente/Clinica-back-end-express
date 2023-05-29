@@ -3,6 +3,7 @@ export interface IConsultaId {
 }
 
 export interface ICreateConsulta {
+  data: string;
   horario: string;
   paciente_id: string;
   usuario_id: string;
@@ -16,6 +17,7 @@ export interface ICreateConsulta {
 
 export interface IUpdateConsulta {
   id: string;
+  data?: string;
   horario?: string;
   paciente_id?: string;
   usuario_id?: string;
