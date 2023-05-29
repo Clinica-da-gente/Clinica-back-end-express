@@ -8,13 +8,10 @@ export interface ICreateConsulta {
   usuario_id: string;
   medico_id: string;
   descricao: string;
-  confirmado: boolean;
-  compareceu: boolean;
   pago: boolean;
-  cancelada: boolean;
-  atendido: boolean;
   criado_em: string;
   atualizado_em: string;
+  status: string;
 }
 
 export interface IUpdateConsulta {
@@ -24,9 +21,6 @@ export interface IUpdateConsulta {
   usuario_id?: string;
   medico_id?: string;
   descricao?: string;
-  confirmado?: boolean;
-  compareceu?: boolean;
   pago?: boolean;
-  cancelada?: boolean;
-  atendido?: boolean;
+  status?: string;
 }

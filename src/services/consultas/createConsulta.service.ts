@@ -3,9 +3,7 @@ import { consultasCollection } from "../../mongoClient";
 
 const createConsultaService = async ({
   atualizado_em,
-  cancelada,
-  compareceu,
-  confirmado,
+  status,
   criado_em,
   descricao,
   horario,
@@ -13,13 +11,9 @@ const createConsultaService = async ({
   paciente_id,
   pago,
   usuario_id,
-  atendido
 }: ICreateConsulta) => {
   return await consultasCollection.insertOne({
     atualizado_em,
-    cancelada,
-    compareceu,
-    confirmado,
     criado_em,
     descricao,
     horario,
@@ -27,7 +21,7 @@ const createConsultaService = async ({
     paciente_id,
     pago,
     usuario_id,
-    atendido
+    status,
   });
 };
 
